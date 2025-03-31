@@ -1,5 +1,6 @@
 package com.example.aplikasipraktikum
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -27,16 +28,15 @@ class MainActivity : AppCompatActivity() {
             val password = passwordInput.text.toString().trim()
 
             // Validation
-            when {
-                email.isEmpty() || password.isEmpty() -> {
-                    Toast.makeText(this, "Email or password cannot be empty", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Email or password cannot be empty", Toast.LENGTH_SHORT).show()
+            } else {
+                // Create intent to MrHeadActivity
+                val intent = Intent(this, MrHeadActivity::class.java).apply {
+                    putExtra("EMAIL", email)
+                    putExtra("PASSWORD", password)
                 }
-                email == "dimas@gmail.com" && password == "235150707111052" -> {
-                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    Toast.makeText(this, "Login failed: Invalid email or password", Toast.LENGTH_SHORT).show()
-                }
+                startActivity(intent)
             }
         }
 
